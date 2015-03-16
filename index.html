@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="theApp">
+
+  <head>
+    <meta charset="utf-8">
+     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="main.js"></script>
+  </head>
+
+  <body ng-controller="MainCtrl">
+    
+<div class='container-fluid' ng-controller="TypeaheadCtrl">
+    <h4>Custom templates for results</h4>
+    <pre>Model: {{customSelected | json}}</pre>
+    <input type="text" ng-model="customSelected" placeholder="Custom template" typeahead="person as person.name for person in personsData | filter:{name:$viewValue}" typeahead-template-url="customTemplate.html" class="form-control">
+</div>
+
+  <script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <img ng-src="{{match.image}}" width="16">
+        <span bind-html-unsafe="match.name | typeaheadHighlight:query"></span>
+    </a>
+  </script>
+
+
+  </body>
+
+</html>
