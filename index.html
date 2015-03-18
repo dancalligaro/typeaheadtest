@@ -12,15 +12,18 @@
   <body ng-controller="MainCtrl">
     
 <div class='container-fluid' ng-controller="TypeaheadCtrl">
-    <h4>Custom templates for results</h4>
-    <pre>Model: {{customSelected | json}}</pre>
-    <input type="text" ng-model="customSelected" placeholder="Custom template" typeahead="person as person.name for person in personsData | filter:{name:$viewValue}" typeahead-template-url="customTemplate.html" class="form-control">
+
+    <h4>Asynchronous results 2</h4>
+    <input type="text" ng-model="asyncSelected2" placeholder="Enter Name" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
+    <pre>Model: {{asyncSelected2 | json}}</pre>
+
 </div>
 
   <script type="text/ng-template" id="customTemplate.html">
     <a>
-        <img ng-src="{{match.image}}" width="16">
-        <span bind-html-unsafe="match.name | typeaheadHighlight:query"></span>
+        <img ng-src="{{person.image}}" width="16">
+        <span bind-html-unsafe="person"></span>
+        <span bind-html-unsafe="person.name | typeaheadHighlight:query"></span>
     </a>
   </script>
 
