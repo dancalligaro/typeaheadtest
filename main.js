@@ -8,7 +8,7 @@ app.controller('TypeaheadCtrl', function($scope, $http, $q, $timeout) {
 
   $scope.personsData = null;
 
-  $http.get('/data/cargografias-persons.json')
+  $http.get('http://v3.cargografias.org/js/datasets/gz/cargografias-persons.json')
   .then(function(res){ 
     $scope.personsData = res.data;
   })
@@ -38,7 +38,7 @@ app.controller('TypeaheadCtrl', function($scope, $http, $q, $timeout) {
     console.log("Selected: ", $scope.asyncSelected2.name)
     $timeout(function(){ $scope.asyncSelected2 = null; },500)
   }
-  
+
   // Any function returning a promise object can be used to load values asynchronously
   $scope.getLocation = function(val) {
     return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
