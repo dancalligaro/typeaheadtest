@@ -38,7 +38,7 @@ app.controller('TypeaheadCtrl', function($scope, $http, $q, $timeout) {
     console.log("Selected: ", $scope.asyncSelected2.name)
     $timeout(function(){ $scope.asyncSelected2 = null; },500)
   }
-
+  
   // Any function returning a promise object can be used to load values asynchronously
   $scope.getLocation = function(val) {
     return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
