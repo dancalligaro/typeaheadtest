@@ -13,9 +13,19 @@
     
 <div class='container-fluid' ng-controller="TypeaheadCtrl">
 
-    <h4>Asynchronous results 2</h4>
     <input type="text" ng-model="asyncSelected2" placeholder="Enter Name" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
-    <pre>Model: {{asyncSelected2 | json}}</pre>
+
+  <div>Selected: </div>
+  <ul>
+    
+    <li ng-repeat="item in selected">
+      <button ng-click="removeThis($index)">X</button>
+      <img ng-src="{{item.image}}" width="30" />
+      <span>{{item.name}}</span>
+    </li>
+
+  </ul>
+
 
 </div>
 

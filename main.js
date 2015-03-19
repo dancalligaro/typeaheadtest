@@ -6,12 +6,18 @@ app.controller('MainCtrl', function($scope) {
 
 app.controller('TypeaheadCtrl', function($scope, $http, $q, $timeout) {
 
+  $scope.selected = [];
+
   $scope.personsData = null;
 
   $http.get('http://v3.cargografias.org/js/datasets/gz/cargografias-persons.json')
   .then(function(res){ 
     $scope.personsData = res.data;
   })
+
+  $scope.removeThis = function(ix){
+    $scope.selected.splice(ix, 1);
+  }
 
   var theTo;
   var isResolved = true;
@@ -36,6 +42,7 @@ app.controller('TypeaheadCtrl', function($scope, $http, $q, $timeout) {
 
   $scope.oneSelected = function(){
     console.log("Selected: ", $scope.asyncSelected2.name)
+    $scope.selected.push($scope.asyncSelected2);
     $timeout(function(){ $scope.asyncSelected2 = null; },500)
   }
 
