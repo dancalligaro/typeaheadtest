@@ -10,6 +10,7 @@
     <script src="controllers/typeaheadCtrl.js"></script>
     <script src="controllers/multifilterCtrl.js"></script>
     <script src="controllers/innerfilterCtrl.js"></script>
+    <script src="controllers/datesCtrl.js"></script>
   </head>
 
   <body ng-controller="MainCtrl">
@@ -77,7 +78,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container" ng-controller="DatesCtrl">
 
   <div class="row">
     <div class="col-sm-12">
@@ -86,22 +87,42 @@
   </div>  
 
   <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Desde</label>
-        <input type="email" class="form-control" placeholder="Cargo">
-        <p class="help-block">Ej: Ministro de Educación</p>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Cargo</label>
-        <input type="email" class="form-control" placeholder="Cargo">
-        <p class="help-block">Ej: Ministro de Educación</p>
-      </div>
+    <div class="col-md-2">
+
+                <label for="exampleInputEmail1">Desde</label>
+
+      <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+      </p>
+    </div>
+    <div class="col-md-2">  
+
+      <label for="exampleInputEmail1">Hasta</label>
+
+      <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+      </p>
     </div>
   </div>  
+
+
 </div>
 
+<div class="container">
 
+  <div class="row">
+    <div class="col-sm-12">
+      <img src="linea.PNG" style="display: block; max-width: 100%;" />
+    </div>
+  </div>  
+
+</div>
 
   <script type="text/ng-template" id="customTemplate.html">
     <a>
