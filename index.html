@@ -7,27 +7,101 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
     <script src="main.js"></script>
+    <script src="controllers/typeaheadCtrl.js"></script>
+    <script src="controllers/multifilterCtrl.js"></script>
+    <script src="controllers/innerfilterCtrl.js"></script>
   </head>
 
   <body ng-controller="MainCtrl">
-    
-<div class='container-fluid' ng-controller="TypeaheadCtrl">
 
-    <input type="text" ng-model="asyncSelected2" placeholder="Enter Name" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
-
-  <div>Selected: </div>
-  <ul>
-    
-    <li ng-repeat="item in selected">
-      <button ng-click="removeThis($index)">X</button>
-      <img ng-src="{{item.image}}" width="30" />
-      <span>{{item.name}}</span>
-    </li>
-
-  </ul>
-
-
+<div style="background: #444; text-align: center; color: white;padding: 8px; font-size: 25px; margin-bottom: 20px;">
+    CARGOGRAFÍAS
 </div>
+
+<div class='container' ng-controller="TypeaheadCtrl">
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="form-group">
+        <input type="text" ng-model="asyncSelected2" placeholder="Buscar por Nombre" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div>Selected: </div>
+      <div ng-repeat="item in selected">
+        <a ng-click="removeThis($index)"><span class="glyphicon glyphicon-trash"></span></a>
+        <img ng-src="{{item.image}}" width="30" />
+        <span>{{item.name}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Búsqueda Avanzada</h1>
+    </div>
+  </div>  
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="" ng-controller="MultiFilterCtrl">
+
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Cargo</label>
+            <input type="email" class="form-control" placeholder="Cargo">
+            <p class="help-block">Ej: Ministro de Educación</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Área</label>
+            <input type="email" class="form-control" placeholder="Área">
+            <p class="help-block">Ej: Buenos Aires</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Partido</label>
+            <input type="email" class="form-control" placeholder="Partido">
+            <p class="help-block">Ej: Frente Para la Victoria</p>
+          </div>
+
+        </form> 
+
+      </div>
+
+    </div>
+    <div class="col-sm-6">.col-sm-1</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Restingir Fechas</h1>
+    </div>
+  </div>  
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Desde</label>
+        <input type="email" class="form-control" placeholder="Cargo">
+        <p class="help-block">Ej: Ministro de Educación</p>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Cargo</label>
+        <input type="email" class="form-control" placeholder="Cargo">
+        <p class="help-block">Ej: Ministro de Educación</p>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
 
   <script type="text/ng-template" id="customTemplate.html">
     <a>
@@ -35,6 +109,28 @@
         <span bind-html-unsafe="match.model.name | typeaheadHighlight:query"></span>
     </a>
   </script>
+
+
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Im a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+
 
 
   </body>
