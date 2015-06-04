@@ -20,96 +20,89 @@
     CARGOGRAFÍAS
 </div>
 
-<div class="container" style="position: relative;">
-  <br />
-  <br />
-  <br />
-  <div  ng-hide="showAdvanced" style="position: absolute; top:0; right: 0;"><a ng-click="openAdvanced()">Filtro Avanzado</a></div>  
-  <div ng-show="showAdvanced" style="position: absolute; top:0; right: 0;"><a ng-click="openAdvanced()">Filtro Simple</a></div>  
-</div>
-
-<div class='container' style="position: relative;" ng-hide="showAdvanced">
-  
-  <div class="row" ng-controller="TypeaheadCtrl">
-
-    <div class="col-sm-6">
-
-      <div class="form-group">
-        <input type="text" ng-model="asyncSelected2" placeholder="Buscar por Nombre" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
-      </div>
-
-    </div>
-    <div class="col-sm-6">
-      <div>Selected: </div>
-      <div ng-repeat="item in selected">
-        <a ng-click="removeThis($index)"><span class="glyphicon glyphicon-trash"></span></a>
-        <img ng-src="{{item.image}}" width="30" />
-        <span>{{item.name}}</span>
-      </div>
-    </div>
-  </div>
-
-
-</div>
-
-<div class="container" ng-show="showAdvanced" ng-controller="AdvancedCtl">
-  
-
+<div class="container">
   <div class="row">
+    <div class="col-sm-12">
+      <tabset justified="true">
+        <tab heading="Personas">
+  
+        <div ng-controller="TypeaheadCtrl">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" ng-model="asyncSelected2" placeholder="Buscar por Nombre" typeahead="person as person.name for person in getPerson($viewValue)" typeahead-template-url="customTemplate.html" typeahead-on-select="oneSelected($value)" class="form-control">    
+            </div>
 
+          </div>
+          <div class="col-sm-6">
+            <div>Selected: </div>
+            <div ng-repeat="item in selected">
+              <a ng-click="removeThis($index)"><span class="glyphicon glyphicon-trash"></span></a>
+              <img ng-src="{{item.image}}" width="30" />
+              <span>{{item.name}}</span>
+            </div>
+          </div>
+          
+        </div>        
+
+        </tab>
+        <tab heading="Filtro Lógico">
+
+
+<div ng-controller="AdvancedCtl">
     <div class="col-sm-12">
       <h2>Filtro Avanzado</h2>
-      <div>
+      <div style="padding-left: 20px;" ng-repeat="criterio in criterios">
+        <table >
+          <tr>
+            <td>Field</td>
+            <td>Operator</td>
+            <td>Value</td>
+            <td></td>
+          </tr>
 
-      <table>
-        <tr>
-          <td>Field</td>
-          <td>Operator</td>
-          <td>Value</td>
-          <td></td>
-        </tr>
+          <tr ng-repeat="subCriterio in criterio">
+            <td>
+              <select ng-model="subCriterio.field">
+                <option>Person.Name</option>
+                <option>Person.DateOfBirth</option>
+                <option>Person.DateOfDeath</option>
+                <option>Membership.Label</option>
+                <option>Membership.Role</option>
+                <option>Membership.Geo</option>
+                <option>Membership.Start</option>
+                <option>Membership.End</option>
+                <option>Organization.Name</option>
+                <option>Organization.Geo</option>
+                <option>Post.Label</option>
+                <option>Post.Function</option>
+                <option>Post.Geo</option>
+              </select>
+            </td>
+            <td>
+              <select ng-model="subCriterio.operator">
+                <option>like (string)</option>
+                <option>after (date)</option>
+                <option>before (date)</option>
+                <option>place (geo)</option>
+              </select>
+            </td>
+            <td>
+              <input ng-model="subCriterio.value" type="text" />
+            </td>
+            <td>
+              <a ng-click="removeSubCriterio($parent.$index, $index)">-</a>
+            </td>
+          </tr>
 
-        <tr ng-repeat="criterio in criterios">
-          <td>
-            <select ng-model="criterio.field">
-              <option>Person.Name</option>
-              <option>Person.DateOfBirth</option>
-              <option>Person.DateOfDeath</option>
-              <option>Membership.Label</option>
-              <option>Membership.Role</option>
-              <option>Membership.Geo</option>
-              <option>Membership.Start</option>
-              <option>Membership.End</option>
-              <option>Organization.Name</option>
-              <option>Organization.Geo</option>
-              <option>Post.Label</option>
-              <option>Post.Function</option>
-              <option>Post.Geo</option>
-            </select>
-          </td>
-          <td>
-            <select ng-model="criterio.operator">
-              <option>like (string)</option>
-              <option>after (date)</option>
-              <option>before (date)</option>
-              <option>place (geo)</option>
-            </select>
-          </td>
-          <td>
-            <input ng-model="criterio.value" type="text" />
-          </td>
-          <td>
-            <a ng-click="removeCrit($index)">-</a>
-          </td>
-        </tr>
-
-      </table>
-        
-      <a ng-click="addAnother()">Add Another</a>
-      </div>
-
+        </table>
+          
+        <a ng-click="addSubCriterio($index)">Agregar Sub Criterio (AND)</a>
+        <a ng-click="removeCriterio($index)">Quitar Criterio</a>
+      </div><!-- criterio -->
+      
+      <a ng-click="addCriterio()">Agregar Criterio (OR)</a>
+    
     </div>
-  </div>
 
   <div class="row">
 
@@ -132,6 +125,24 @@
   </div>
   
 </div>
+
+
+        </tab>
+        <tab heading="Armar Set">Armar Set</tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+
+<div class='container' style="position: relative;" ng-hide="showAdvanced">
+  
+  <div class="row" ng-controller="TypeaheadCtrl">
+
+  </div>
+
+
+</div>
+
 
 <div class="container" ng-controller="DatesCtrl">
  <br />
