@@ -19,8 +19,17 @@
     CARGOGRAFÍAS
 </div>
 
-<div class='container' ng-controller="TypeaheadCtrl">
-  <div class="row">
+<div class="container" style="position: relative;">
+  <br />
+  <br />
+  <br />
+  <div style="position: absolute; top:0; right: 0;"><a ng-click="openAdvanced()">Filtro Avanzado</a></div>  
+</div>
+
+<div class='container' style="position: relative;" ng-hide="showAdvanced">
+  
+  <div class="row" ng-controller="TypeaheadCtrl">
+
     <div class="col-sm-6">
 
       <div class="form-group">
@@ -37,56 +46,40 @@
       </div>
     </div>
   </div>
+
+
 </div>
 
-<div class="container">
-
-  <div class="row">
+<div class="container" ng-show="showAdvanced">
+  <div class="row" ng-controller="TypeaheadCtrl">
     <div class="col-sm-12">
-      <h1>Búsqueda Avanzada</h1>
+      <h2>Filtro Avanzado</h2>
     </div>
-  </div>  
-
-  <div class="row">
     <div class="col-sm-6">
 
-      <div class="" ng-controller="MultiFilterCtrl">
-
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Cargo</label>
-            <input type="email" class="form-control" placeholder="Cargo">
-            <p class="help-block">Ej: Ministro de Educación</p>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Área</label>
-            <input type="email" class="form-control" placeholder="Área">
-            <p class="help-block">Ej: Buenos Aires</p>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Partido</label>
-            <input type="email" class="form-control" placeholder="Partido">
-            <p class="help-block">Ej: Frente Para la Victoria</p>
-          </div>
-
-        </form> 
-
-      </div>
 
     </div>
-    <div class="col-sm-6">.col-sm-1</div>
+    <div class="col-sm-6">
+      <div>Selected: </div>
+      <div ng-repeat="item in selected">
+        <a ng-click="removeThis($index)"><span class="glyphicon glyphicon-trash"></span></a>
+        <img ng-src="{{item.image}}" width="30" />
+        <span>{{item.name}}</span>
+      </div>
+    </div>
   </div>
+  
 </div>
 
 <div class="container" ng-controller="DatesCtrl">
 
   <div class="row">
     <div class="col-sm-12">
-      <h1>Restingir Fechas</h1>
+      <h1>Restingir Fechas <input type="checkbox" ng-model="showfechas" /></h1>
     </div>
   </div>  
 
-  <div class="row">
+  <div class="row" ng-show="showfechas">
     <div class="col-md-2">
 
                 <label for="exampleInputEmail1">Desde</label>
@@ -133,24 +126,39 @@
 
 
 
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Im a modal!</h3>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a ng-click="selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ selected.item }}</b>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+  <script type="text/ng-template" id="advancedFilter.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Im a modal!</h3>
+      </div>
+      <div class="modal-body">
+      
+        <h1>Búsqueda Avanzada</h1>
 
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Cargo</label>
+            <input type="email" class="form-control" placeholder="Cargo">
+            <p class="help-block">Ej: Ministro de Educación</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Área</label>
+            <input type="email" class="form-control" placeholder="Área">
+            <p class="help-block">Ej: Buenos Aires</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Partido</label>
+            <input type="email" class="form-control" placeholder="Partido">
+            <p class="help-block">Ej: Frente Para la Victoria</p>
+          </div>
+
+        </form> 
+
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="ok()">OK</button>
+          <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+  </script>
 
 
 

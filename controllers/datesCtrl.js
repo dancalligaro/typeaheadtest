@@ -1,7 +1,10 @@
 var app = angular.module('theApp');
 
 app.controller('DatesCtrl', function($scope) {
-$scope.today = function() {
+  
+  $showfechas = false;
+
+  $scope.today = function() {
     $scope.dt = new Date();
   };
   $scope.today();
